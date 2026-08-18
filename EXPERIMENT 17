@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+void leading(char ch)
+{
+    switch (ch)
+    {
+        case 'E':
+            printf("LEADING(E) = { (, id, + }\n");
+            break;
+
+        case 'T':
+            printf("LEADING(T) = { (, id, * }\n");
+            break;
+
+        case 'F':
+            printf("LEADING(F) = { (, id }\n");
+            break;
+
+        default:
+            printf("Invalid Non-Terminal\n");
+    }
+}
+
+int main()
+{
+    printf("Grammar:\n");
+    printf("E -> E+T | T\n");
+    printf("T -> T*F | F\n");
+    printf("F -> (E) | id\n\n");
+
+    printf("LEADING Sets:\n");
+
+    leading('E');
+    leading('T');
+    leading('F');
+
+    return 0;
+}
