@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+void follow(char ch)
+{
+    switch(ch)
+    {
+        case 'S':
+            printf("{ $ }\n");
+            break;
+
+        case 'A':
+            printf("{ a, b }\n");
+            break;
+
+        case 'B':
+            printf("{ a, b }\n");
+            break;
+
+        default:
+            printf("Invalid Non-Terminal\n");
+    }
+}
+
+int main()
+{
+    printf("Grammar:\n");
+    printf("S -> AaAb | BbBa\n");
+    printf("A -> epsilon\n");
+    printf("B -> epsilon\n\n");
+
+    printf("FOLLOW(S) = ");
+    follow('S');
+
+    printf("FOLLOW(A) = ");
+    follow('A');
+
+    printf("FOLLOW(B) = ");
+    follow('B');
+
+    return 0;
+}
