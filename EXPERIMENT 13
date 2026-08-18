@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char input[100];
+int pos = 0;
+int error = 0;
+
+/* Function declarations */
+void E();
+void Eprime();
+void T();
+void Tprime();
+void F();
+
+/* E -> T E' */
+void E()
+{
+    T();
+    if (!error)
+        Eprime();
+}
+
+/* E' -> + T E' | epsilon */
+void Eprime()
+{
+    if (input[pos] == '+')
+    {
+        pos++;
+        T();
+
+        if (!error)
+            Eprime();
+    }
+}
+
+/* T -> F T' */
+void T()
+{
+    F();
+
+    if (!error)
+        Tprime();
+}
+
+/* T' -> * F T' | epsilon */
+void Tprime()
+{
+    if (input[pos] == '*')
+    {
+        pos++;
+        F();
+
+        if (!error)
+            Tprime();
+    }
+}
+
+/* F -> (E) | id */
+void F()
+{
+    if (input[pos] == '(')
+    {
+        pos++;
+        E();
+
+        if (error)
+            return;
+
+        if (input[pos] == ')')
+            pos++;
+        else
+            error = 1;
+    }
+    else if (input[pos] == 'i' && input[pos + 1] == 'd')
+    {
+        pos += 2;
+    }
+    else
+    {
+        error = 1;
+    }
+}
+
+int main()
+{
+    printf("Enter the input string: ");
+    scanf("%s", input);
+
+    E();
+
+    if (!error && input[pos] == '\0')
+        printf("Input string is ACCEPTED.\n");
+    else
+        printf("Input string is REJECTED.\n");
+
+    return 0;
+}
