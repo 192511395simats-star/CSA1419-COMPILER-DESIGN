@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main()
+{
+    printf("Original Grammar:\n");
+    printf("S -> iEtS | iEtSeS | a\n");
+    printf("E -> b\n\n");
+
+    printf("Common prefix found: iEtS\n\n");
+
+    printf("Grammar after eliminating left factoring:\n");
+    printf("S  -> iEtSS' | a\n");
+    printf("S' -> epsilon | eS\n");
+    printf("E  -> b\n");
+
+    return 0;
+}
