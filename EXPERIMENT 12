@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <string.h>
+
+char input[100];
+int pos = 0;
+
+/* Function declarations */
+void E();
+void Eprime();
+void T();
+void Tprime();
+void F();
+
+/* Error function */
+void error()
+{
+    printf("Invalid String\n");
+    exit(0);
+}
+
+/* E -> T E' */
+void E()
+{
+    T();
+    Eprime();
+}
+
+/* E' -> + T E' | epsilon */
+void Eprime()
+{
+    if (input[pos] == '+')
+    {
+        pos++;
+        T();
+        Eprime();
+    }
+}
+
+/* T -> F T' */
+void T()
+{
+    F();
+    Tprime();
+}
+
+/* T' -> * F T' | epsilon */
+void Tprime()
+{
+    if (input[pos] == '*')
+    {
+        pos++;
+        F();
+        Tprime();
+    }
+}
+
+/* F -> ( E ) | id */
+void F()
+{
+    if (input[pos] == '(')
+    {
+        pos++;
+        E();
+
+        if (input[pos] == ')')
+            pos++;
+        else
+            error();
+    }
+    else if (input[pos] == 'i' && input[pos + 1] == 'd')
+    {
+        pos += 2;
+    }
+    else
+    {
+        error();
+    }
+}
+
+int main()
+{
+    printf("Enter the input string: ");
+    scanf("%s", input);
+
+    E();
+
+    if (input[pos] == '$' || input[pos] == '\0')
+        printf("String is Accepted\n");
+    else
+        printf("String is Rejected\n");
+
+    return 0;
+}
