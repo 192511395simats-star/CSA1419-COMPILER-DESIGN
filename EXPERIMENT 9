@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char nonTerminal = 'L';
+    char alpha[] = ",S";
+    char beta[] = "S";
+
+    printf("Original Grammar:\n");
+    printf("S -> (L) | a\n");
+    printf("L -> L,S | S\n\n");
+
+    printf("Left recursive production found:\n");
+    printf("L -> L%s | %s\n\n", alpha, beta);
+
+    printf("After eliminating left recursion:\n");
+    printf("S  -> (L) | a\n");
+    printf("L  -> %sL'\n", beta);
+    printf("L' -> %sL' | epsilon\n", alpha);
+
+    return 0;
+}
